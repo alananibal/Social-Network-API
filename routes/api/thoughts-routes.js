@@ -8,10 +8,10 @@ const {
     deleteThought,
     createReaction,
     deleteReaction
-} = require('../../controllers/thoughts-controller');
+} = require('../../controllers/thoughts-controllers');
 
 router
-    .router('/thoughts')
+    .route('/thoughts')
     .get(getAllthoughts)
     .post(createThought);
 
