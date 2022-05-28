@@ -6,21 +6,20 @@ const UserSchema = new Schema(
       type: String,
       unique: true,
       trim: true,
-      required: "Username is Required",
+      required: [true, "username is Required"],
     },
     email: {
       type: String,
       unique: true,
-      required: "email is Required",
+      required: [true, "email is Required"],
       match: [/.+@.+\..+/],
     },
     thoughts: [{ type: Schema.Types.ObjectId, ref: "Thought" }],
-    friends: [UserSchema],
+    friends: [{ type: Schema.Types.ObjectId, ref: "User" }],
   },
   {
     toJSON: {
       virtuals: true,
-      getters: true,
     },
     id: false,
   }

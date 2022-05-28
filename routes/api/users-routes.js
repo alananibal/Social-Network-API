@@ -9,7 +9,7 @@ const {
 } = require('../../controllers/user-controller');
 
 router
-    .router('/')
+    .route('/')
     .get(getAllUsers)
     .post(createUser);
 
