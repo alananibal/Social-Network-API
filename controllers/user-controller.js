@@ -4,12 +4,6 @@ const UserController = {
   // get all Users
   getAllUsers(req, res) {
     User.find({})
-      // .populate({
-      //   path: 'thoughts',
-      //   select: '-__v'
-      // })
-      // .select('-__v')
-      // .sort({ _id: -1 })
       .then(dbUserData => res.json(dbUserData))
       .catch(err => {
         console.log(err);
@@ -57,7 +51,49 @@ const UserController = {
     User.findOneAndDelete({ _id: params.id })
       .then(dbUserData => res.json(dbUserData))
       .catch(err => res.json(err));
+  },
+  // Create friends
+  includeFriend({ params }, res) {
+    console.log(params._id)
+    console.log(params.friendId)
+    User.findOneAndUpdate(
+      { _id: params.id },
+      { $addToSet: { friends: params.friendId}},
+      { new: true}
+      )
+      confirm.log
+      // .populate({path: 'friends', select: ('-__v')})
+      // .select('-__v')
+      .then(dbUsersData => {
+        if(!dbUsersData) {
+            res.status(404).json({message: 'No User with this particular ID!'});
+            return;
+        }
+        res.json(dbUsersData);
+    })
+    .catch(err => res.status(400).json(err));
+
+  },
+
+  deleteFriend({ params }, res) {
+    User.findOneAndUpdate(
+      {_id: params.id}, 
+      {$pull: { friends: params.friendId}}, 
+      {new: true}
+      )
+    .populate({path: 'friends', select: '-__v'})
+    .select('-__v')
+    .then(dbUsersData => {
+        if(!dbUsersData) {
+            res.status(404).json({message: 'No User with this particular ID!'});
+            return;
+        }
+        res.json(dbUsersData);
+    })
+    .catch(err => res.status(400).json(err));
   }
+
+
 };
 
 module.exports = UserController;
