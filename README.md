@@ -13,7 +13,8 @@
 
 #### Tests
     Tests where made with Insomnia
-   ![Alt Text](gif_ Jun 13, 2022 8_45 PM.gif) 
+ ![gif_ Jun 13, 2022 8_45 PM](https://user-images.githubusercontent.com/97938732/173490152-8f56108d-3902-4e81-bcb1-318c91271f72.gif)
+
 
 ###### Requirements:
 
