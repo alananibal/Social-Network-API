@@ -53,15 +53,14 @@ const UserController = {
       .catch(err => res.json(err));
   },
   // Create friends
-  includeFriend({ params }, res) {
+  addFriend({ params }, res) {
     console.log(params._id)
     console.log(params.friendId)
     User.findOneAndUpdate(
       { _id: params.id },
-      { $addToSet: { friends: params.friendId}},
+      { $push: { friends: params.friendId}},
       { new: true}
       )
-      confirm.log
       // .populate({path: 'friends', select: ('-__v')})
       // .select('-__v')
       .then(dbUsersData => {
@@ -81,8 +80,8 @@ const UserController = {
       {$pull: { friends: params.friendId}}, 
       {new: true}
       )
-    .populate({path: 'friends', select: '-__v'})
-    .select('-__v')
+    // .populate({path: 'friends', select: '-__v'})
+    // .select('-__v')
     .then(dbUsersData => {
         if(!dbUsersData) {
             res.status(404).json({message: 'No User with this particular ID!'});
